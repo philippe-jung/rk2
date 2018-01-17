@@ -5,6 +5,7 @@ namespace Rk\Routing;
 use Rk\Exception;
 use Rk\Config;
 use Rk\Action\AbstractAction;
+use Rk\Request;
 
 class Router
 {
@@ -86,6 +87,11 @@ class Router
             }
         }
 
+        // check if the routeInfo holds specific HTTP methods
+        if (!empty($routeInfo)) {
+            $routeInfo = self::checkMethodForRoute($routeInfo);
+        }
+
         // no route info found, nothing we can do
         if (empty($routeInfo)) {
             throw new Exception\RouteNotFound('Could not build a route');
@@ -147,6 +153,14 @@ class Router
                     }
                 }
 
+                // ensure the found route accepts the request's method
+                dump('before', $oneRoute);
+                $oneRoute = self::checkMethodForRoute($oneRoute);
+                if (empty($oneRoute)) {
+                    continue;
+                }
+                dump('after', $oneRoute);
+
                 // we will only reach that point if we found a matching root (thanks to the 2 continue)
                 // we have to rename the parameters and remove the starting ":" from each of them
                 $paramsForRoute = array();
@@ -160,6 +174,33 @@ class Router
         }
 
         return false;
+    }
+
+    /**
+     * Routes can be formatted in 2 different ways:
+     * - allows all HTTP methods (no method specified)
+     *      'distance' => ['Distance', 'Get'],
+     * - expect certain specific HTTP methods (expects either GET or POST)
+     *      'job'     => array(
+     *          Request::METHOD_GET  => ['Job', 'Collection'],
+     *          Request::METHOD_POST => ['Job', 'Create'],
+     *      ),
+     *
+     * @param array $routeInfo
+     * @return bool|array
+     */
+    protected static function checkMethodForRoute(array $routeInfo)
+    {
+        // the first key of the routeInfo is a string: it means we expect a specific HTTP method
+        if (is_string(key($routeInfo))) {
+            if (!array_key_exists(Request::getMethod(), $routeInfo)) {
+                return false;
+            } else {
+                $routeInfo = $routeInfo[Request::getMethod()];
+            }
+        }
+
+        return $routeInfo;
     }
 
     /**

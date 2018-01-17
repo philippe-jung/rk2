@@ -90,6 +90,18 @@ class DB {
     }
 
     /**
+     * Runs an update query and returns the inserted id
+     *
+     * @param $query
+     * @param array $binds
+     * @throws Exception
+     */
+    public function update($query, array $binds = array())
+    {
+        $this->query($query, $binds);
+    }
+
+    /**
      * Runs a query
      *
      * @param $query

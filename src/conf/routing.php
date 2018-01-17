@@ -1,6 +1,7 @@
 <?php
 
 use Rk\Routing\Router;
+use Rk\Request;
 
 $GLOBALS['routing'] = array(
     'Front' => array(
@@ -10,13 +11,18 @@ $GLOBALS['routing'] = array(
     ),
 
     'Example' => array(
-        // special routes for the services
-//        'github/repos'  => ['Github', 'Repos'],
-//        'github/users'  => 'Github/Users',
-//        'distance/:user1/:user2'      => ['Distance', 'Get'],
-//        'GET=distance/:user1/:user2'      => ['Distance', 'Get'],
-//        'distance/:user1/:user2/test'      => ['Distance', 'Get'],
-//        'distance/:user1/:user2'      => ['Distance', 'Get'],
-        'distance'      => ['Distance', 'Get'],
-    )
+        'distance' => ['Distance', 'Get'],
+    ),
+
+    'RecruitMe' => array(
+        'job'     => array(
+            Request::METHOD_GET  => ['Job', 'Collection'],
+            Request::METHOD_POST => ['Job', 'Create'],
+        ),
+        'job/:id' => array(
+            Request::METHOD_GET    => ['Job', 'Retrieve'],
+            Request::METHOD_PUT    => ['Job', 'Update'],
+            Request::METHOD_DELETE => ['Job', 'Delete'],
+        ),
+    ),
 );

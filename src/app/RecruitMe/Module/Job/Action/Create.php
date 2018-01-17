@@ -11,7 +11,7 @@ use Rk\Service\Response\Success;
 
 class Create extends AbstractAction
 {
-    protected $requiredMethod = Request::METHOD_GET;
+    protected $requiredMethod = Request::METHOD_POST;
 
     protected $requiredParams = array(
         'title'       => self::FORMAT_STRING,
@@ -22,12 +22,26 @@ class Create extends AbstractAction
 
     public function execute(): Response
     {
+        // insert the job
         $query = '
-            INSERT INTO job (title, category, location, created_at, updated_at, status)
-            VALUES ()';
+            INSERT INTO job (title, category, description, location)
+            VALUES (:title, :category, :description, :location)';
 
-        $res = DB::getInstance()->insert($query);
-dump($res);
-        return new Success('1');
+        $insertId = DB::getInstance()->insert($query, array(
+            'title' => $this->getValidatedParam('title'),
+            'category' => $this->getValidatedParam('category'),
+            'description' => $this->getValidatedParam('description'),
+            'location' => $this->getValidatedParam('location'),
+        ));
+
+        // retrieve insert values
+        $query = '
+            SELECT title, category, description, location
+            FROM job
+            WHERE id = ?';
+
+        $jobs = DB::getInstance()->select($query, $insertId);
+
+        return new Success($jobs[0]);
     }
 }

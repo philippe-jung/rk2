@@ -188,14 +188,14 @@ abstract class AbstractAction
     /**
      * Get the value of given validated param
      *
-     * @param $name
-     * @return string
-     * @throws Exception\Exception
+     * @param string $name
+     * @param mixed $default
+     * @return mixed
      */
-    protected function getValidatedParam($name): string
+    protected function getValidatedParam(string $name, $default = null)
     {
         if (!array_key_exists($name, $this->params)) {
-            throw new Exception\Exception('Unknown param ' . $name);
+            return $default;
         }
         return $this->params[$name];
     }

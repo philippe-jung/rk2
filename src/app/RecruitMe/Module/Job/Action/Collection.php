@@ -5,6 +5,7 @@ namespace Rk\Application\RecruitMe\Module\Job\Action;
 
 use Rk\Action\AbstractAction;
 use Rk\Action\Response;
+use Rk\Application\RecruitMe\Module\Job\Helper;
 use Rk\DB\DB;
 use Rk\Request;
 use Rk\Service\Response\Success;
@@ -15,13 +16,19 @@ class Collection extends AbstractAction
 
     public function execute(): Response
     {
+        // retrieve all active jobs
         $query = '
-            SELECT * 
+            SELECT title, category, description, location
             FROM job 
-            WHERE status = "active"';
+            WHERE status = "' . Helper::STATUS_ACTIVE. '"';
 
-        $res = DB::getInstance()->select($query);
-dump($res);
-        return new Success('1');
+        $jobs = DB::getInstance()->select($query);
+
+        $formattedJobs = array();
+        foreach ($jobs as $oneJob) {
+            $formattedJobs[] = Helper::format($oneJob, true);
+        }
+
+        return new Success($formattedJobs);
     }
 }

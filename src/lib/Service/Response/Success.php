@@ -11,6 +11,10 @@ class Success extends Response
      */
     public function __construct($data, $code = 200)
     {
+        // for single string returns, wrap the data in a "message" index
+        if (is_string($data)) {
+            $data = array('message' => $data);
+        }
         parent::__construct($data, $code);
     }
 }
