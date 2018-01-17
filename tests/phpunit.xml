@@ -1,0 +1,10 @@
+<phpunit bootstrap="autoload.php">
+    <testsuites>
+        <testsuite name="Example">
+            <file>Example/Distance.php</file>
+        </testsuite>
+        <testsuite name="Framework">
+            <file>Framework/Routing.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>
