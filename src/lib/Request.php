@@ -18,7 +18,15 @@ class Request
      */
     public static function getParams(): array
     {
-        return $_REQUEST;
+//        switch (self::getMethod()) {
+//            case self::METHOD_POST:
+//            case self::METHOD_GET:
+                return $_REQUEST;
+
+//            default:
+//                parse_str(file_get_contents('php://input'), $post_vars);
+//                return $post_vars;
+//        }
     }
 
     /**

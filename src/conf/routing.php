@@ -10,7 +10,7 @@ $GLOBALS['routing'] = array(
         Router::ROUTE_NOTFOUND => ['Home', 'NotFound'],
     ),
 
-    'Example' => array(
+    'ExampleApi' => array(
         'distance' => ['Distance', 'Get'],
     ),
 

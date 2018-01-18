@@ -1,10 +1,13 @@
 <phpunit bootstrap="autoload.php">
     <testsuites>
-        <testsuite name="Example">
-            <file>Example/Distance.php</file>
+        <testsuite name="ExampleApi">
+            <file>ExampleApi/Distance.php</file>
         </testsuite>
         <testsuite name="Framework">
             <file>Framework/Routing.php</file>
+        </testsuite>
+        <testsuite name="RecruitMe">
+            <file>RecruitMe/Job.php</file>
         </testsuite>
     </testsuites>
 </phpunit>

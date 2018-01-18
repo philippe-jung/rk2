@@ -20,7 +20,7 @@ try {
     // error management for API calls
     if (\Rk\Config::isDebug()) {
         $response = new Error(array(
-            'error' => $e->getMessage(),
+            'message' => $e->getMessage(),
             'trace' => $e->getTraceAsString()
         ));
     } else {

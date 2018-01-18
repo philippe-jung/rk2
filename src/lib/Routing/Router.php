@@ -190,7 +190,7 @@ class Router
     protected static function checkMethodForRoute(array $routeInfo)
     {
         // the first key of the routeInfo is a string: it means we expect a specific HTTP method
-        if (is_string(key($routeInfo))) {
+        if (!is_numeric(key($routeInfo))) {
             if (!array_key_exists(Request::getMethod(), $routeInfo)) {
                 return false;
             } else {

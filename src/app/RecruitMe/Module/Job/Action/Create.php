@@ -42,6 +42,7 @@ class Create extends AbstractAction
 
         // retrieve created job
         $job = Helper::retrieveJob($insertId);
+        $job = Helper::format($job, true);
 
         return new Success($job);
     }

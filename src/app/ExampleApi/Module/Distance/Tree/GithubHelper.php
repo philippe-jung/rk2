@@ -26,6 +26,7 @@ class GithubHelper
      * @return array
      * @throws Exception
      * @throws \Rk\Exception\ConfigNotFound
+     * @throws \Rk\Exception\Exception
      */
     public function getReposForUser(string $userName): array
     {
@@ -58,6 +59,7 @@ class GithubHelper
      * @return array
      * @throws Exception
      * @throws \Rk\Exception\ConfigNotFound
+     * @throws \Rk\Exception\Exception
      */
     public function getContributorsForRepo(int $repoId)
     {
@@ -118,8 +120,8 @@ class GithubHelper
             // Display the message if an error occured
             $message = 'An error has occurred when querying github';
             $message .= ': ' . $response->getStatusCode();
-            if (!empty($output['error'])) {
-                $message .= ' - ' . $output['error'];
+            if (!empty($output['message'])) {
+                $message .= ' - ' . $output['message'];
             }
             throw new Exception($message);
         }

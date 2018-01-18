@@ -25,7 +25,7 @@ try {
     // error management for API calls
     if (\Rk\Config::isDebug()) {
         $response = new Error(array(
-            'error' => 'An internal error has occurred',
+            'message' => 'An internal error has occurred',
             'debug' => array(
                 'message' => $e->getMessage(),
                 'trace'   => $e->getTraceAsString(),

@@ -27,7 +27,7 @@ class Collection extends AbstractAction
             WHERE status = :status';
 
         $jobs = DB::getInstance()->select($query, array(
-            'status' => Helper::STATUS_DELETED
+            'status' => Helper::STATUS_ACTIVE
         ));
 
         $formattedJobs = array();

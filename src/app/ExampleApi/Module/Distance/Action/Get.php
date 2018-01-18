@@ -17,11 +17,6 @@ class Get extends AbstractServiceAction
         'user2' => self::FORMAT_STRING,
     );
 
-    protected $optionalParams = array(
-        'user3' => self::FORMAT_STRING,
-        'user4' => self::FORMAT_STRING,
-    );
-
     protected $requiredMethod = array(
         Request::METHOD_GET,
     );

@@ -12,7 +12,7 @@ class Error extends Response
     public function __construct($data, $code = 500)
     {
         if (is_string($data)) {
-            $data = array('error' => $data);
+            $data = array('message' => $data);
         }
 
         parent::__construct($data, $code);

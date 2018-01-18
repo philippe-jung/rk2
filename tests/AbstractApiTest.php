@@ -48,44 +48,65 @@ abstract class AbstractApiTest extends TestCase
     {
         $this->assertEquals($code, $response->getStatusCode());
         if (!empty($message)) {
-            $body = json_decode($response->getBody()->getContents(), true);
-            $this->assertNotEmpty($body);
-            $this->assertArrayHasKey('error', $body);
-            $this->assertEquals($message, $body['error']);
+            $this->checkErrorContent($response, $message);
         }
+    }
+
+    /**
+     * Check that the body has given error message
+     *
+     * @param ResponseInterface $response
+     * @param string $message
+     */
+    protected function checkErrorContent(ResponseInterface $response, string $message)
+    {
+        $body = json_decode($response->getBody()->getContents(), true);
+        $this->assertNotEmpty($body);
+        $this->assertArrayHasKey('message', $body);
+        $this->assertEquals($message, $body['message']);
     }
 
     /**
      * Assert that given Guzzle call succeeded and that the returned content has given $expectedKeys
      *
      * @param ResponseInterface $response
-     * @param array $expectedKeys
+     * @param array|string $expected
      * @return mixed
      */
-    public function assertSuccess(ResponseInterface $response, $expectedKeys = array())
+    public function assertSuccess(ResponseInterface $response, $expected = array())
     {
-        if (!is_array($expectedKeys)) {
-            $expectedKeys = array($expectedKeys);
-        }
-
         $this->assertEquals(200, $response->getStatusCode());
         $body = json_decode($response->getBody()->getContents(), true);
 
-        if (!empty($expectedKeys)) {
-            $this->assertNotEmpty($body);
-
-            // check that we have all expected keys in the returned content
-            $checkedBody = $body;
-            foreach ($expectedKeys as $oneKey) {
-                $this->assertArrayHasKey($oneKey, $checkedBody);
-                unset($checkedBody[$oneKey]);
-            }
-
-            // check no extra key were returned in the body
-            $this->assertArrayEmpty($checkedBody);
+        if (!empty($expected)) {
+            $this->checkSuccessContent($body, $expected);
         }
 
         return $body;
+    }
+
+    /**
+     * Check that the body has given success content
+     *
+     * @param array $body
+     * @param $expected
+     */
+    protected function checkSuccessContent(array $body, $expected)
+    {
+        if (!is_array($expected)) {
+            $expected = array($expected);
+        }
+        $this->assertNotEmpty($body);
+
+        // check that we have all expected keys in the returned content
+        $checkedBody = $body;
+        foreach ($expected as $oneKey) {
+            $this->assertArrayHasKey($oneKey, $checkedBody);
+            unset($checkedBody[$oneKey]);
+        }
+
+        // check no extra key were returned in the body
+        $this->assertArrayEmpty($checkedBody);
     }
 
     /**
