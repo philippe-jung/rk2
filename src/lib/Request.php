@@ -12,21 +12,41 @@ class Request
     const METHOD_DELETE = 'DELETE';
 
     /**
+     * @var array
+     */
+    private static $params;
+
+    /**
      * Get all the params of the request
      *
      * @return array
      */
     public static function getParams(): array
     {
-//        switch (self::getMethod()) {
-//            case self::METHOD_POST:
-//            case self::METHOD_GET:
-                return $_REQUEST;
+        if (empty(self::$params)) {
+            // retrieve standard GET/POST params
+            $params = $_REQUEST;
 
-//            default:
-//                parse_str(file_get_contents('php://input'), $post_vars);
-//                return $post_vars;
-//        }
+            $vars = array();
+            // add other types of params
+            $input = file_get_contents('php://input');
+            if (!empty($input)) {
+                if (!empty($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] == 'application/json') {
+                    $vars = json_decode($input, true);
+                } else {
+                    parse_str($input, $vars);
+                }
+            }
+
+            // override GET/POST params with the input ones
+            foreach ($vars as $name => $value) {
+                $params[$name] = $value;
+            }
+
+            self::$params = $params;
+        }
+
+        return self::$params;
     }
 
     /**

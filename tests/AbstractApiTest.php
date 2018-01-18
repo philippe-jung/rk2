@@ -24,13 +24,18 @@ abstract class AbstractApiTest extends TestCase
     public function sendRequest(string $method, string $uri, array $params = array())
     {
         $client = $this->getClient();
+        $method = strtoupper($method);
 
         // we want to deal with 500 errors manually
         $requestParams = array(
             'http_errors' => false
         );
         if (!empty($params)) {
-            $requestParams['query'] = $params;
+            if ($method == 'GET' || $method == 'POST') {
+                $requestParams['query'] = $params;
+            } else {
+                $requestParams['json'] = $params;
+            }
         }
         $response = $client->request($method, $uri, $requestParams);
 

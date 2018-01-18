@@ -8,7 +8,6 @@ $GLOBALS['config'] = array(
         'conn' => 'mysql:dbname=recruit_me;host=localhost',
         'user' => 'recruit_me',
         'pass' => 'recruit_me',
-
     ),
 
     // endpoint to the Github mockup
