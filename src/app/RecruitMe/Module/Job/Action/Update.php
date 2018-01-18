@@ -16,7 +16,7 @@ class Update extends AbstractAction
     protected $requiredMethod = Request::METHOD_PUT;
 
     protected $requiredParams = array(
-        'id' => self::FORMAT_INT,
+        'id' => self::FORMAT_STRING,
     );
 
     protected $optionalParams = array(
@@ -43,7 +43,7 @@ class Update extends AbstractAction
 
         // prepare the query
         $binds = array(
-            'id' => $this->getValidatedParam('id')
+            'public_id' => $this->getValidatedParam('id')
         );
         $query = '
             UPDATE job 
@@ -53,7 +53,7 @@ class Update extends AbstractAction
             $query .= $field . ' = :' . $field;
         }
         $query .= '
-            WHERE id = :id';
+            WHERE public_id = :public_id';
 
         // update the job
         DB::getInstance()->update($query, $binds);

@@ -3,8 +3,6 @@
 namespace Rk\DB\Exception;
 
 
-use Rk\DB\Exception;
-
 /**
  * Used when unique keys are not respected
  */

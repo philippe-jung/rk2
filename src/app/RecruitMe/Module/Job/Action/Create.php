@@ -30,18 +30,19 @@ class Create extends AbstractAction
     {
         // insert the job
         $query = '
-            INSERT INTO job (title, category, description, location)
-            VALUES (:title, :category, :description, :location)';
+            INSERT INTO job (title, category, description, location, public_id)
+            VALUES (:title, :category, :description, :location, :public_id)';
 
         $insertId = DB::getInstance()->insert($query, array(
-            'title' => $this->getValidatedParam('title'),
-            'category' => $this->getValidatedParam('category'),
+            'title'       => $this->getValidatedParam('title'),
+            'category'    => $this->getValidatedParam('category'),
             'description' => $this->getValidatedParam('description'),
-            'location' => $this->getValidatedParam('location'),
+            'location'    => $this->getValidatedParam('location'),
+            'public_id'   => substr(sha1(mt_rand()),0,24)
         ));
 
         // retrieve created job
-        $job = Helper::retrieveJob($insertId);
+        $job = Helper::retrieveJob($insertId, 'id');
         $job = Helper::format($job, true);
 
         return new Success($job);

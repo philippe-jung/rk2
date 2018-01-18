@@ -5,7 +5,7 @@ require_once(__DIR__ . '/bootstrap.php');
 use Rk\Service\Response\Error;
 use Rk\Exception;
 use Rk\Service\Exception\Exception as ServiceException;
-
+ini_set('display_errors', 0);
 try {
     // simple logic to call the correct app dispatcher based on the URL
     // all requests coming to this file will be routed to the 'RecruitMe' application

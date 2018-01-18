@@ -1,6 +1,6 @@
 <?php
 
-namespace Rk\DB;
+namespace Rk\DB\Exception;
 
 /**
  * Generic DB exception

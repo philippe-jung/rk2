@@ -23,10 +23,10 @@ class Helper
      * @throws DBException
      * @throws ServiceException
      */
-    public static function retrieveJob(string $value, string $fieldName = 'id')
+    public static function retrieveJob(string $value, string $fieldName = 'public_id')
     {
         $query = '
-            SELECT id, title, category, description, location, created_at, status
+            SELECT public_id, title, category, description, location, created_at, status
             FROM job 
             WHERE ' . $fieldName . ' = ?
             LIMIT 1';
@@ -52,7 +52,7 @@ class Helper
         if (!$partialFields) {
             $date = new \DateTime($values['created_at']);
             $return = array(
-                '_id'         => $values['id'],
+                '_id'         => $values['public_id'],
                 'title'       => $values['title'],
                 'category'    => $values['category'],
                 'description' => $values['description'],

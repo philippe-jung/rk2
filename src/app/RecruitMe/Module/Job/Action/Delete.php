@@ -15,7 +15,7 @@ class Delete extends AbstractAction
     protected $requiredMethod = Request::METHOD_DELETE;
 
     protected $requiredParams = array(
-        'id' => self::FORMAT_INT,
+        'id' => self::FORMAT_STRING,
     );
 
     /**
@@ -32,13 +32,13 @@ class Delete extends AbstractAction
 
         // prepare the query
         $binds = array(
-            'id'     => $this->getValidatedParam('id'),
-            'status' => Helper::STATUS_DELETED,
+            'public_id' => $this->getValidatedParam('id'),
+            'status'    => Helper::STATUS_DELETED,
         );
         $query = '
             UPDATE job 
             SET status = :status
-            WHERE id = :id';
+            WHERE public_id = :public_id';
 
         // mark the job as deleted
         DB::getInstance()->update($query, $binds);

@@ -14,7 +14,7 @@ class Retrieve extends AbstractAction
     protected $requiredMethod = Request::METHOD_GET;
 
     protected $requiredParams = array(
-        'id' => self::FORMAT_INT,
+        'id' => self::FORMAT_STRING,
     );
 
     /**

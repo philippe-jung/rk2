@@ -5,6 +5,7 @@ namespace Rk\DB;
 
 use Rk\Config;
 use Rk\DB\Exception\DuplicateEntry;
+use Rk\DB\Exception\Exception;
 use Rk\DB\Exception\InvalidForeignKey;
 
 /**
@@ -158,7 +159,11 @@ class DB {
             break;
 
             default:
-                throw new Exception($error[2], $error[1]);
+                $message = $error[0];
+                if (!empty($error[2])) {
+                    $message .= ' : ' . $error[2];
+                }
+                throw new Exception($message, $error[1]);
         }
     }
 

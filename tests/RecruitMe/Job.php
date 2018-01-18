@@ -68,6 +68,7 @@ class Job extends AbstractTest
 
     /**
      * @throws \Rk\DB\Exception
+     * @depends testCallErrors
      */
     public function testCreate()
     {
@@ -95,18 +96,21 @@ class Job extends AbstractTest
             // add the values not returned by this service but needed by others
             $res = DB::getInstance()->select('
                 SELECT 
-                    id,
+                    public_id,
                     created_at 
                 FROM job
                 ORDER BY id DESC
                 LIMIT 1'
             );
-            self::$jobs[$i]['_id']  = $res[0]['id'];
+            self::$jobs[$i]['_id']  = $res[0]['public_id'];
             $date = new \DateTime($res[0]['created_at']);
             self::$jobs[$i]['date'] = $date->format('Y-m-d\TH:i:s.v\Z');
         }
     }
 
+    /**
+     * @depends testCreate
+     */
     public function testCollection()
     {
         // we should find all entries of self::$jobs in the collection service
@@ -119,6 +123,9 @@ class Job extends AbstractTest
         $this->assertEquals($result[0], $valuesToFind);
     }
 
+    /**
+     * @depends testCollection
+     */
     public function testRetrieve()
     {
         // check that we can retrieve all jobs
@@ -133,6 +140,9 @@ class Job extends AbstractTest
         $this->assertError($response, 'No such job');
     }
 
+    /**
+     * @depends testRetrieve
+     */
     public function testDelete()
     {
         // delete the first job
@@ -148,6 +158,9 @@ class Job extends AbstractTest
         $this->assertError($response, 'The requested job is no longer active');
     }
 
+    /**
+     * @depends testDelete
+     */
     public function testUpdate()
     {
         // try to update the deleted job
@@ -168,6 +181,9 @@ class Job extends AbstractTest
         $this->assertSuccess($response, self::$jobs[1]);
     }
 
+    /**
+     * @depends testUpdate
+     */
     public function testCollectionAgain()
     {
         // we should find all entries of self::$jobs in the collection service, except the deleted one
