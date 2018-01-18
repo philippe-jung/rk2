@@ -1,18 +1,9 @@
 <?php
 
 $GLOBALS['config'] = array(
-    // protocol + domain where the install is accessible (required for Framework unit tests)
-    'baseUrl' => 'http://rk.local',
-
-    'db' => array(
-        'conn' => 'mysql:dbname=recruit_me;host=localhost',
-        'user' => 'recruit_me',
-        'pass' => 'recruit_me',
-    ),
-
     // endpoint to the Github mockup
     'github' => array(
-        'root'     => 'http://rk.local/exampleApi/',
+        'root'     => getenv('BASE_URL') . '/exampleApi/',
     ),
 
     // fake data used by the Github mockup

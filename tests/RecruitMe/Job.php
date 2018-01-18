@@ -10,7 +10,7 @@ require_once (__DIR__ . '/AbstractTest.php');
 class Job extends AbstractTest
 {
     /**
-     * @throws \Rk\DB\Exception
+     * @throws \Rk\DB\Exception\Exception
      */
     public static function setUpBeforeClass()
     {
@@ -67,7 +67,7 @@ class Job extends AbstractTest
     }
 
     /**
-     * @throws \Rk\DB\Exception
+     * @throws \Rk\DB\Exception\Exception
      * @depends testCallErrors
      */
     public function testCreate()

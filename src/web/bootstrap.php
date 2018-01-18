@@ -1,8 +1,21 @@
 <?php
 
-$GLOBALS['debug'] = true;
+// autoload everything thanks to Composer
+require_once(__DIR__ . '/../../vendor/autoload.php');
 
-if (!empty($GLOBALS['debug'])) {
+$dotenv = new Dotenv\Dotenv(__DIR__ . '/../../');
+$dotenv->load();
+
+$dotenv->required('BASE_URL');
+$dotenv->required('DB_CONN');
+$dotenv->required('DB_USER');
+$dotenv->required('DB_PASS');
+
+// load the config files
+require_once(__DIR__ . '/../conf/config.php');
+require_once(__DIR__ . '/../conf/routing.php');
+
+if (!empty(getenv('DEBUG'))) {
     ini_set('display_errors', true);
     // when using the display errors directive, PHP will use a HTTP 200 Code, even in case of errors
     // therefor we use a custom shutdown function to force it to 500 and yet have the error displayed
@@ -17,10 +30,3 @@ function shutdownHandler()
         http_response_code(500);
     }
 }
-
-// autoload everything thanks to Composer
-require_once(__DIR__ . '/../../vendor/autoload.php');
-
-// load the config files
-require_once(__DIR__ . '/../conf/config.php');
-require_once(__DIR__ . '/../conf/routing.php');

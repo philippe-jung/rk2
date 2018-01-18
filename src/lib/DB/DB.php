@@ -46,9 +46,9 @@ class DB {
     {
         // PDO connection using db config params
         $this->handler = new \PDO(
-            Config::getConfigParam('db.conn'),
-            Config::getConfigParam('db.user'),
-            Config::getConfigParam('db.pass')
+            getenv('DB_CONN'),
+            getenv('DB_USER'),
+            getenv('DB_PASS')
         );
 
         if ($this->handler->errorCode()) {

@@ -89,6 +89,6 @@ class Config
      */
     public static function isDebug(): bool
     {
-        return !empty($GLOBALS['debug']);
+        return !empty(getenv('DEBUG'));
     }
 }

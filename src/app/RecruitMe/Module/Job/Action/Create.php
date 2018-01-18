@@ -23,7 +23,7 @@ class Create extends AbstractAction
 
     /**
      * @return Response
-     * @throws \Rk\DB\Exception
+     * @throws \Rk\DB\Exception\Exception
      * @throws \Rk\Service\Exception\Exception
      */
     public function execute(): Response

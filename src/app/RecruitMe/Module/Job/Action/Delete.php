@@ -20,7 +20,7 @@ class Delete extends AbstractAction
 
     /**
      * @return Response
-     * @throws \Rk\DB\Exception
+     * @throws \Rk\DB\Exception\Exception
      * @throws \Rk\Exception\Exception
      * @throws \Rk\Service\Exception\Exception
      */

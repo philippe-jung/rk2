@@ -16,7 +16,7 @@ class Collection extends AbstractAction
 
     /**
      * @return Response
-     * @throws \Rk\DB\Exception
+     * @throws \Rk\DB\Exception\Exception
      */
     public function execute(): Response
     {
