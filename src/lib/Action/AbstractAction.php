@@ -22,7 +22,7 @@ abstract class AbstractAction
      *
      * @var array
      */
-    protected $params;
+    private $params;
 
     /**
      * Description of the required parameters and their type

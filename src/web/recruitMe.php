@@ -8,7 +8,7 @@ use Rk\Service\Exception\Exception as ServiceException;
 
 try {
     // simple logic to call the correct app dispatcher based on the URL
-    // all requests coming to this file will be routed to the 'Example' application
+    // all requests coming to this file will be routed to the 'RecruitMe' application
     $component = \Rk\Routing\Router::getActionFromRequest('RecruitMe');
     $response = $component->execute();
     $response->send();

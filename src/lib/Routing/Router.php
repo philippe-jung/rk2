@@ -154,12 +154,10 @@ class Router
                 }
 
                 // ensure the found route accepts the request's method
-                dump('before', $oneRoute);
                 $oneRoute = self::checkMethodForRoute($oneRoute);
                 if (empty($oneRoute)) {
                     continue;
                 }
-                dump('after', $oneRoute);
 
                 // we will only reach that point if we found a matching root (thanks to the 2 continue)
                 // we have to rename the parameters and remove the starting ":" from each of them

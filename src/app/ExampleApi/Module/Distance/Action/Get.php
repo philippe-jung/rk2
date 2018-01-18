@@ -1,9 +1,9 @@
 <?php
 
-namespace Rk\Application\Example\Module\Distance\Action;
+namespace Rk\Application\ExampleApi\Module\Distance\Action;
 
-use Rk\Application\Example\Module\Distance\Tree\Element;
-use Rk\Application\Example\Module\Distance\Tree\GetHelper;
+use Rk\Application\ExampleApi\Module\Distance\Tree\Element;
+use Rk\Application\ExampleApi\Module\Distance\Tree\GetHelper;
 use Rk\Request;
 use Rk\Service\AbstractServiceAction;
 use Rk\Service\Response\Response;

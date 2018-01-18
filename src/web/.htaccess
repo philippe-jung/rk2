@@ -2,7 +2,11 @@ RewriteEngine on
 
 # Redirect all /api/ calls to example-api.php
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^/example-api/(.*)$ example-api.php/$1 [QSA,L]
+RewriteRule ^/exampleApi/(.*)$ exampleApi.php/$1 [QSA,L]
+
+# Redirect all /api/ calls to example-api.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^/recruitMe/(.*)$ recruitMe.php/$1 [QSA,L]
 
 # Redirect all calls to index.php
 RewriteCond %{REQUEST_FILENAME} !-f

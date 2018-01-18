@@ -1,6 +1,6 @@
 <?php
 
-namespace Rk\Application\Example\Module\Distance\Tree;
+namespace Rk\Application\ExampleApi\Module\Distance\Tree;
 
 use Rk\Config;
 use Rk\Service\Exception\Exception;

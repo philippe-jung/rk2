@@ -1,6 +1,6 @@
 <?php
 
-namespace Rk\Application\Example\Module\Github\Action;
+namespace Rk\Application\ExampleApi\Module\Github\Action;
 
 use Rk\Config;
 use Rk\Service\Response\Error;

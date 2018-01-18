@@ -1,6 +1,6 @@
 <?php
 
-namespace Rk\Test\Example;
+namespace Rk\Test\ExampleApi;
 
 require_once (__DIR__ . '/AbstractTest.php');
 

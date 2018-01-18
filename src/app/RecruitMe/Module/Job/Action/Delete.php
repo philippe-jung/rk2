@@ -18,6 +18,12 @@ class Delete extends AbstractAction
         'id' => self::FORMAT_INT,
     );
 
+    /**
+     * @return Response
+     * @throws \Rk\DB\Exception
+     * @throws \Rk\Exception\Exception
+     * @throws \Rk\Service\Exception\Exception
+     */
     public function execute(): Response
     {
         // retrieve the job to check it is active
@@ -26,14 +32,15 @@ class Delete extends AbstractAction
 
         // prepare the query
         $binds = array(
-            'id' => $this->getValidatedParam('id')
+            'id'     => $this->getValidatedParam('id'),
+            'status' => Helper::STATUS_DELETED,
         );
         $query = '
             UPDATE job 
-            SET status = "deleted"
+            SET status = :status
             WHERE id = :id';
 
-        // update the job
+        // mark the job as deleted
         DB::getInstance()->update($query, $binds);
 
         return new Success('Record successfully deleted');

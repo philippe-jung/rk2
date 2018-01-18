@@ -1,6 +1,6 @@
 <?php
 
-namespace Rk\Test\Example;
+namespace Rk\Test\ExampleApi;
 
 use Rk\Config;
 use Rk\Test\AbstractApiTest;

@@ -13,7 +13,7 @@ $GLOBALS['config'] = array(
 
     // endpoint to the Github mockup
     'github' => array(
-        'root'     => 'http://rk.local/example-api/',
+        'root'     => 'http://rk.local/exampleApi/',
     ),
 
     // fake data used by the Github mockup

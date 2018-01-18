@@ -5,6 +5,7 @@ namespace Rk\Application\RecruitMe\Module\Job\Action;
 
 use Rk\Action\AbstractAction;
 use Rk\Action\Response;
+use Rk\Application\RecruitMe\Module\Job\Helper;
 use Rk\DB\DB;
 use Rk\Request;
 use Rk\Service\Response\Success;
@@ -20,6 +21,11 @@ class Create extends AbstractAction
         'location'    => self::FORMAT_STRING,
     );
 
+    /**
+     * @return Response
+     * @throws \Rk\DB\Exception
+     * @throws \Rk\Service\Exception\Exception
+     */
     public function execute(): Response
     {
         // insert the job
@@ -34,14 +40,9 @@ class Create extends AbstractAction
             'location' => $this->getValidatedParam('location'),
         ));
 
-        // retrieve insert values
-        $query = '
-            SELECT title, category, description, location
-            FROM job
-            WHERE id = ?';
+        // retrieve created job
+        $job = Helper::retrieveJob($insertId);
 
-        $jobs = DB::getInstance()->select($query, $insertId);
-
-        return new Success($jobs[0]);
+        return new Success($job);
     }
 }

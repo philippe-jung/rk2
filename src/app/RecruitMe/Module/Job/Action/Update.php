@@ -9,7 +9,6 @@ use Rk\Application\RecruitMe\Module\Job\Helper;
 use Rk\DB\DB;
 use Rk\Request;
 use Rk\Service\Exception\Exception;
-use Rk\Service\Response\Error;
 use Rk\Service\Response\Success;
 
 class Update extends AbstractAction
@@ -35,19 +34,8 @@ class Update extends AbstractAction
      */
     public function execute(): Response
     {
-        // check which attribute we must update
-        $toUpdate = array();
-        foreach ($this->optionalParams as $name => $format) {
-            $value = $this->getValidatedParam($name);
-            if (!is_null($value)) {
-                $toUpdate[$name] = $value;
-            }
-        }
-
-        // check that at least one attribute needs to be updated
-        if (empty($toUpdate)) {
-            return new Error('No new value was specified');
-        }
+        // get the values that need updating
+        $toUpdate = $this->getValuesToUpdate();
 
         // retrieve the job to ensure it is active
         $job = Helper::retrieveJob($this->getValidatedParam('id'));
@@ -75,5 +63,28 @@ class Update extends AbstractAction
         $job = Helper::format($job);
 
         return new Success($job);
+    }
+
+    /**
+     * @return array
+     * @throws Exception
+     */
+    protected function getValuesToUpdate(): array
+    {
+        // check which attribute we must update
+        $toUpdate = array();
+        foreach ($this->optionalParams as $name => $format) {
+            $value = $this->getValidatedParam($name);
+            if (!is_null($value)) {
+                $toUpdate[$name] = $value;
+            }
+        }
+
+        // check that at least one attribute needs to be updated
+        if (empty($toUpdate)) {
+            throw new Exception('No new value was specified');
+        }
+
+        return $toUpdate;
     }
 }

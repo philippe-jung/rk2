@@ -7,7 +7,6 @@ use Rk\Action\AbstractAction;
 use Rk\Action\Response;
 use Rk\Application\RecruitMe\Module\Job\Helper;
 use Rk\Request;
-use Rk\Service\Response\Error;
 use Rk\Service\Response\Success;
 
 class Retrieve extends AbstractAction
@@ -15,7 +14,7 @@ class Retrieve extends AbstractAction
     protected $requiredMethod = Request::METHOD_GET;
 
     protected $requiredParams = array(
-        'id'       => self::FORMAT_INT,
+        'id' => self::FORMAT_INT,
     );
 
     /**
@@ -28,10 +27,12 @@ class Retrieve extends AbstractAction
     {
         // retrieve given job
         $job = Helper::retrieveJob($this->getValidatedParam('id'));
+
+        // make sure it is still active
         Helper::checkJobIsActive($job);
 
+        // format it
         $formattedJob = Helper::format($job);
-
         return new Success($formattedJob);
     }
 }

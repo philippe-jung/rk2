@@ -7,8 +7,8 @@ use Rk\Exception;
 
 try {
     // simple logic to call the correct app dispatcher based on the URL
-    // all requests coming to this file will be routed to the 'Example' application
-    $component = \Rk\Routing\Router::getActionFromRequest('Example');
+    // all requests coming to this file will be routed to the 'ExampleApi' application
+    $component = \Rk\Routing\Router::getActionFromRequest('ExampleApi');
     $response = $component->execute();
     $response->send();
 
