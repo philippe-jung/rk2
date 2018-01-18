@@ -201,4 +201,26 @@ class Job extends AbstractTest
             next($toFind);
         }
     }
+
+    /**
+     * @depends testCollectionAgain
+     */
+    public function testNaughtyString()
+    {
+        // check that the Update service deals with a list of dodgy strings
+        $source = __DIR__ . '/BigListOfNaughtyStrings.txt';
+
+        $fh = fopen($source, 'r');
+        while (($buffer = fgets($fh, 4096)) !== false) {
+            if (0 !== strpos($buffer, '#') && $buffer != "\n") {
+                $response = $this->sendRequest('PUT', 'job/' . self::$jobs[1]['_id'], array(
+                    'description' => $buffer
+                ));
+                $result = $this->assertSuccess($response);
+                $this->assertEquals($result['description'], $buffer);
+            }
+        }
+        fclose($fh);
+    }
+
 }
